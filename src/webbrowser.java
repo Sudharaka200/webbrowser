@@ -53,7 +53,61 @@ public class webbrowser {
         }
     }
     //Profile
+class Profile{
+        private String name;
+        private List<CreateTab> tabs;
+        private List<String> bookmarks;
+        private List<String> shortcuts;
+        private List<String> history;
+        private String theme;
 
+        public Profile(String name){
+            this.name = name;
+            tabs = new ArrayList<>();
+            bookmarks = new ArrayList<>();
+            shortcuts = new ArrayList<>();
+            history = new ArrayList<>();
+            theme = "theme-1";
+        }
+        public String getName(){
+            return name;
+        }
+        public CreateTab createTab() {
+            CreateTab tab = new CreateTab();
+            tabs.add(tab);
+            return tab;
+        }
+        public void addBookmark(String url) {
+            bookmarks.add(url);
+        }
+
+        public List<String> getBookmarks() {
+            return bookmarks;
+        }
+        public void addShortcut(String url) {
+            shortcuts.add(url);
+        }
+
+        public List<String> getShortcuts() {
+            return shortcuts;
+        }
+
+        public void addToHistory(String url) {
+            history.add(url);
+        }
+        public List<String> getHistory() {
+            return history;
+        }
+
+        public void setTheme(String theme) {
+            this.theme = theme;
+        }
+
+        public String getTheme() {
+            return theme;
+        }
+
+    }
 
 
 
