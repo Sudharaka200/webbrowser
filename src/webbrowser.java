@@ -51,9 +51,14 @@ public class webbrowser {
         private String getCurrentUrl(){
             return currentUrl;
         }
-
     }
 
+
+
+
+
+
+    
     public static void main(String[] args){
         webbrowser webbrowserObj = new webbrowser();
         CreateTab tabObj = webbrowserObj.new CreateTab();
