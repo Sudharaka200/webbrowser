@@ -166,6 +166,7 @@ class Profile{
         //Theme
         currentProfile.setTheme("Theme1");
         System.out.println("Selected Theme :" + currentProfile.getTheme());
+        
         webbrowserObj.switchProfile("Profile2");
         Profile currentProfile2 = webbrowserObj.getCurrentProfile();
         System.out.println("Switch Profile :" + currentProfile2.getName());
