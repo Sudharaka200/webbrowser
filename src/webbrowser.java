@@ -107,7 +107,26 @@ class Profile{
             return theme;
         }
     }
-           ddddddddddddddddddddddddddddddddddddddddddddd
+           private Map<String, Profile> profiles;
+    private Profile currentProfile;
+
+    public webbrowser() {
+        profiles = new HashMap<>();
+    }
+
+    public Profile createProfile(String name) {
+        Profile profile = new Profile(name);
+        profiles.put(name, profile);
+        return profile;
+    }
+
+    public void switchProfile(String name) {
+        currentProfile = profiles.get(name);
+    }
+
+    public Profile getCurrentProfile() {
+        return currentProfile;
+    }
 
 
 
