@@ -106,7 +106,6 @@ class Profile{
         public String getTheme() {
             return theme;
         }
-
     }
 
 
