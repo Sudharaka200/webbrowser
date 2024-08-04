@@ -107,7 +107,8 @@ class Profile{
             return theme;
         }
     }
-           private Map<String, Profile> profiles;
+    
+    private Map<String, Profile> profiles;
     private Profile currentProfile;
 
     public webbrowser() {
