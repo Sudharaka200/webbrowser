@@ -135,7 +135,13 @@ class Profile{
     public static void main(String[] args){
         webbrowser webbrowserObj = new webbrowser();
 
-        
+        //Create Profile
+        Profile profileObj1 = webbrowserObj.createProfile("Profile1");
+        Profile profileObj2 = webbrowserObj.createProfile("Profile2");
+        Profile profileObj3 = webbrowserObj.createProfile("Profile3");
+
+        //Switch Profile1
+        webbrowserObj.switchProfile("Profile1");
         CreateTab tabObj = webbrowserObj.new CreateTab();
 
         //Search Url
