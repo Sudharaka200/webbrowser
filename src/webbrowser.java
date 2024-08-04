@@ -126,6 +126,19 @@ class Profile{
         tabObj.goBackbutton();
         tabObj.goFowardButton();
 
+        //Bookmarks
+        currentProfile.addBookmark("www.nibm.com");
+        System.out.println("Added Bookmark :" + currentProfile.getBookmarks());
+        //Shortcuts
+        currentProfile.addShortcut("www.Youtube.com");
+        System.out.println("Added Shortcuts :" + currentProfile.getShortcuts());
+        //History
+        currentProfile.addToHistory(tabObj1.getCurrentUrl());
+        System.out.println("History" + currentProfile.getHistory());
+        //Theme
+        currentProfile.setTheme("Theme1");
+        System.out.println("Selected Theme :" + currentProfile.getTheme());
+
 
     }
 }
