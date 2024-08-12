@@ -12,7 +12,6 @@ public class webbrowser {
             currentUrl = null;
         }
 
-        // New web URL
         public void nowUrl(String url) {
             if (currentUrl != null) {
                 backButton.push(currentUrl);
@@ -22,7 +21,6 @@ public class webbrowser {
             displayUrl();
         }
 
-        // Back button history
         public void goBackButton() {
             if (!backButton.isEmpty()) {
                 forwardButton.push(currentUrl);
@@ -33,7 +31,6 @@ public class webbrowser {
             }
         }
 
-        // Forward button history
         public void goForwardButton() {
             if (!forwardButton.isEmpty()) {
                 backButton.push(currentUrl);
@@ -53,7 +50,6 @@ public class webbrowser {
         }
     }
 
-    // Profile class
     class Profile implements Comparable<Profile> {
         private String name;
         private List<CreateTab> tabs;
@@ -65,10 +61,10 @@ public class webbrowser {
         public Profile(String name) {
             this.name = name;
             tabs = new ArrayList<>();
-            bookmarks = new LinkedList<>();  // Using LinkedList as a Queue
-            shortcuts = new LinkedList<>();  // Using LinkedList as a Queue
-            history = new Stack<>();         // Using Stack for History
-            theme = "Theme1";                // Default theme
+            bookmarks = new LinkedList<>();
+            shortcuts = new LinkedList<>();
+            history = new Stack<>();
+            theme = "Theme1";
         }
 
         public String getName() {
@@ -82,29 +78,29 @@ public class webbrowser {
         }
 
         public void addBookmark(String url) {
-            bookmarks.offer(url);  // Enqueue the bookmark
+            bookmarks.offer(url);
         }
 
         public void displayBookmarks() {
             System.out.println("Bookmarks (FIFO): ");
             while (!bookmarks.isEmpty()) {
-                System.out.println(bookmarks.poll());  // Dequeue and display
+                System.out.println(bookmarks.poll());
             }
         }
 
         public void addShortcut(String url) {
-            shortcuts.offer(url);  // Enqueue the shortcut
+            shortcuts.offer(url);
         }
 
         public void displayShortcuts() {
             System.out.println("Shortcuts (FIFO): ");
             while (!shortcuts.isEmpty()) {
-                System.out.println(shortcuts.poll());  // Dequeue and display
+                System.out.println(shortcuts.poll());
             }
         }
 
         public void addToHistory(String url) {
-            history.push(url);  // Push the URL onto the stack
+            history.push(url);
         }
 
         public List<String> getHistory() {
@@ -113,9 +109,9 @@ public class webbrowser {
 
         public void displayHistory() {
             System.out.println("History (Last Search First): ");
-            Stack<String> tempHistory = (Stack<String>) history.clone(); // Clone the stack to preserve the original
+            Stack<String> tempHistory = (Stack<String>) history.clone();
             while (!tempHistory.isEmpty()) {
-                System.out.println(tempHistory.pop());  // Pop and display
+                System.out.println(tempHistory.pop());
             }
         }
 
@@ -129,10 +125,15 @@ public class webbrowser {
         }
 
         public void setTheme(String theme) {
-            if (theme.equals("Theme1") || theme.equals("Theme2") || theme.equals("Theme3")) {
+            if (theme == "Theme1"){
                 this.theme = theme;
-            } else {
-                System.out.println("Invalid theme! Available themes: Theme1, Theme2, Theme3.");
+            } else if (theme == "Theme2") {
+                this.theme = theme;
+            } else if (theme == "Theme3") {
+                this.theme = theme;
+            }
+            else {
+                System.out.println("Invalid Theme!");
             }
         }
 
@@ -165,19 +166,14 @@ public class webbrowser {
     public Profile createProfile(String name) {
         Profile profile = new Profile(name);
         profiles.add(profile);
-        sortProfiles();  // Sort profiles after adding a new one
         return profile;
-    }
-
-    private void sortProfiles() {
-        Collections.sort(profiles);
     }
 
     public void switchProfile(String name) {
         for (Profile profile : profiles) {
             if (profile.getName().equals(name)) {
                 currentProfile = profile;
-                currentProfile.clearHistory();  // Clear history when switching profiles
+                currentProfile.clearHistory();
                 return;
             }
         }
@@ -188,9 +184,23 @@ public class webbrowser {
         return currentProfile;
     }
 
-    // Method to display all created profiles
-    public void displayAllProfiles() {
-        System.out.println("All Profiles:");
+    public void sortProfiles() {
+        // Bubble Sort implementation
+        for (int i = 0; i < profiles.size() - 1; i++) {
+            for (int j = 0; j < profiles.size() - i - 1; j++) {
+                if (profiles.get(j).compareTo(profiles.get(j + 1)) > 0) {
+                    // Swap profiles[j] and profiles[j + 1]
+                    Profile temp = profiles.get(j);
+                    profiles.set(j, profiles.get(j + 1));
+                    profiles.set(j + 1, temp);
+                }
+            }
+        }
+    }
+
+    public void displayProfiles() {
+        sortProfiles();  // Ensure profiles are sorted before displaying
+        System.out.println("Profiles:");
         for (Profile profile : profiles) {
             System.out.println(profile.getName());
         }
@@ -199,69 +209,38 @@ public class webbrowser {
     public static void main(String[] args) {
         webbrowser webbrowserObj = new webbrowser();
 
-        // Create Profiles
         Profile profileObj1 = webbrowserObj.createProfile("Profile1");
-        Profile profileObj2 = webbrowserObj.createProfile("Profile2");
-        Profile profileObj3 = webbrowserObj.createProfile("Profile3");
+        Profile profileObj2 = webbrowserObj.createProfile("Profile3");
+        Profile profileObj3 = webbrowserObj.createProfile("Profile2");
 
-        // Display all created profiles
-        webbrowserObj.displayAllProfiles();
+        webbrowserObj.displayProfiles();  // Display profiles sorted
 
-        // Switch to Profile1
         webbrowserObj.switchProfile("Profile1");
         Profile currentProfile = webbrowserObj.getCurrentProfile();
-
-        // Create a tab and navigate URLs
         CreateTab tabObj1 = currentProfile.createTab();
         tabObj1.nowUrl("www.nibm.com");
         tabObj1.nowUrl("www.nibm.com/about");
         tabObj1.nowUrl("www.nibm.com/contactus");
-
-        // Back and forward navigation
         tabObj1.goBackButton();
         tabObj1.goBackButton();
         tabObj1.goForwardButton();
-
-        // Add a bookmark
         currentProfile.addBookmark(tabObj1.getCurrentUrl());
         currentProfile.addBookmark("www.example.com");
-
-        // Display bookmarks
         currentProfile.displayBookmarks();
-
-        // Add a shortcut
         currentProfile.addShortcut("www.Youtube.com");
         currentProfile.addShortcut("www.Google.com");
-
-        // Display shortcuts
         currentProfile.displayShortcuts();
-
-        // Add to history
         currentProfile.addToHistory(tabObj1.getCurrentUrl());
         currentProfile.addToHistory("www.example.com");
-
-        // Display history
         currentProfile.displayHistory();
-
-        // Switch and display theme
         currentProfile.switchTheme("Theme2");
-
-        // Display the current theme
         currentProfile.displayCurrentTheme();
-
-        // Clear history using the "Clear History" button
         currentProfile.clearHistoryButton();
         System.out.println("History after clearing: " + currentProfile.getHistory());
 
-        // Switch to another profile
         webbrowserObj.switchProfile("Profile2");
         System.out.println("Switched to profile: " + webbrowserObj.getCurrentProfile().getName());
-
-        // Switch to a new theme in Profile2
         webbrowserObj.getCurrentProfile().switchTheme("Theme3");
-
-        // Display the current theme in Profile2
         webbrowserObj.getCurrentProfile().displayCurrentTheme();
-
     }
 }
